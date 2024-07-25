@@ -26,3 +26,54 @@ collision intersect::IsThereCollision(Object& first, Object& second)
 
 	return to_where;
 }
+
+intersect::Object intersect::IntersectArea(Object& first, Object& second)
+{
+	Object ret = { -1, -1, -1, -1 };
+
+	if (!(first.left >= second.right || first.right <= second.left || first.down <= second.up || first.up >= second.down))
+	{
+		if (first.left < second.left && first.right > second.right)
+		{
+			ret.left = second.left;
+			ret.right = second.right;
+		}
+		else if (first.left < second.left && first.right >= second.left && first.right <= second.right)
+		{
+			ret.left = second.left;
+			ret.right = first.right;
+		}
+		else if (first.right > second.right && first.left >= second.left && first.left <= second.right)
+		{
+			ret.left = first.left;
+			ret.right = second.right;
+		}
+		else
+		{
+			if (first.left >= second.left && first.left <= second.right)ret.left = first.left;
+			if (first.right >= second.left && first.right <= second.right)ret.right = first.right;
+		}
+
+		if (first.up < second.up && first.down > second.down)
+		{
+			ret.up = second.up;
+			ret.down = second.down;
+		}
+		else if (first.up < second.up && first.down >= second.up && first.down <= second.down)
+		{
+			ret.up = second.up;
+			ret.down = first.down;
+		}
+		else if (first.down > second.down && first.up >= second.up && first.up <= second.up)
+		{
+			ret.up = first.up;
+			ret.down = second.down;
+		}
+		else
+		{
+			ret.up = first.up;
+			ret.down = first.down;
+		}
+	}
+	return ret;
+}
