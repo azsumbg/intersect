@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "intersect.h"
 
-collision intersect::IsThereCollision(Object& first, Object& second)
+intersect::collision intersect::IsThereCollision(Object& first, Object& second)
 {
 	collision to_where = collision::no;
 
